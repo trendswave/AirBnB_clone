@@ -9,7 +9,7 @@ import cmd
 '''class for command interpter '''
 
 class HBNBCommand(cmd.Cmd):
-import cmd
+ import cmd
 from datetime import datetime
 from models.base_model import BaseModel
 from models import classes, storage
@@ -81,3 +81,4 @@ def do_destroy(self, arg):
                 storage.save()
             else:
                 print("** no instance found **")
+
