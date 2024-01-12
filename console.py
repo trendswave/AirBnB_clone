@@ -2,10 +2,11 @@
 #command interpreter in python
 
 import cmd
-# print(dir(cmd.Cmd))
+
+#print(dir(cmd.Cmd))
 
 '''class for command interpter '''
-class Command(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     intro = 'Welcome to the command prompt! Please enter help for a list of commands.'
     prompt = '(hbnb) '
     
@@ -19,4 +20,5 @@ class Command(cmd.Cmd):
         ''' This is to exit the custom CMD'''
         return True
     pass
-Command().cmdloop()
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
