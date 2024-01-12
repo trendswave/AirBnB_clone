@@ -46,5 +46,20 @@ def do_create(self, arg):
         else:
             obj = classes[args[0]]()
             obj.save()
-            print(obj.id)             
-
+            print(obj.id)    
+                     
+def do_show(self, arg):
+        'Shows attributes of <class> <id>'
+        args = parse(arg)
+        if not args or len(args) == 0 or args[0] == "":
+            print("** class name missing **")
+        elif args[0] not in classes:
+            print("** class doesn't exist **")
+        elif len(args) < 2 or args[1] == "":
+            print("** instance id missing **")
+        else:
+            key = args[0] + "." + args[1]
+            if key in storage.all():
+                print(storage.all()[key])
+            else:
+                print("** no instance found **")
