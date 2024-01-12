@@ -82,3 +82,22 @@ def do_destroy(self, arg):
             else:
                 print("** no instance found **")
 
+def do_all(self, arg):
+        'Prints all <class> instances or all instances'
+        args = parse(arg)
+        objects = storage.all()
+        if not args:
+            v_list = []
+            for k, v in objects.items():
+                v_list.append(str(objects[k]))
+            if v_list:
+                print(v_list)
+        else:
+            v_list = []
+            for k, v in objects.items():
+                if v.__class__.__name__ == args[0]:
+                    v_list.append(str(objects[k]))
+            if v_list:
+                print(v_list)
+            else:
+                print("** class doesn't exist **")
