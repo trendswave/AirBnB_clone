@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 #command interpreter in python
 
+from ast import parse
 import cmd
 
 #print(dir(cmd.Cmd))
@@ -9,7 +10,6 @@ import cmd
 
 class HBNBCommand(cmd.Cmd):
 import cmd
-from datetime import datetime
 from models.base_model import BaseModel
 from models import classes, storage
 import re
@@ -47,7 +47,7 @@ def do_create(self, arg):
             obj = classes[args[0]]()
             obj.save()
             print(obj.id)    
-                     
+
 def do_show(self, arg):
         'Shows attributes of <class> <id>'
         args = parse(arg)
