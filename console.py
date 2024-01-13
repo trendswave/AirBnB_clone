@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 #command interpreter in python
 
-from ast import parse
 import cmd
 # print(dir(cmd.Cmd))
 
@@ -161,3 +160,9 @@ def val_type(val):
         return (float)
     except ValueError:
         return (str)
+    
+def parse(arg):
+    return arg.split()
+
+if __name__ == "__main__":
+    HBNBCommand().cmdloop()
