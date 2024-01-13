@@ -24,4 +24,22 @@ class TestConsole(unittest.TestCase):
     def setUpClass(cls):
         """ Creates an instance """
         cls.console = HBNBCommand()
+    
 
+    @classmethod
+    def teardown(cls):
+        """ Deletes the instance """
+        del cls.console
+
+    def tearDown(self):
+        """ Removes the JSON file """
+        try:
+            os.remove("file.json")
+        except:
+            pass
+
+    def test_pep8_console(self):
+        """ Tests this script for PEP8 styling """
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(["console.py"])
+        self.assertEqual(p.total_errors, 0, 'PEP8 Failed') 
