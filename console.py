@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 #command interpreter in python
 
-from ast import parse
 import cmd
 # print(dir(cmd.Cmd))
 
@@ -100,3 +99,70 @@ def do_all(self, arg):
                 print(v_list)
             else:
                 print("** class doesn't exist **")
+
+
+def do_update(self, arg):
+        'Updates class attribute.'
+        args = parse(arg)
+        objects = storage.all()
+        if not args or args is None:
+            print("** class name missing **")
+        elif args[0] not in classes:
+            print("** class doesn't exist **")
+        elif len(args) < 2 or args[1] == "":
+            print("** instance id missing **")
+        elif len(args) < 3 or args[2] == "":
+            print("** attribute name missing **")
+        elif len(args) < 4 or args[3] == "":
+            print("** value missing **")
+        else:
+            for k, v in objects.items():
+                key = args[0] + "." + args[1]
+                if k == key:
+                    attr = args[3].split('"')
+                    t = val_type(attr[1])
+                    objects[key].__dict__[args[2]] = (t)(attr[1])
+                    objects[key].updated_at = datetime.now()
+                    storage.save()
+                    return
+            print("** no instance found **")
+
+def default(self, arg):
+        """ Deals with <class name>.<command>() """
+        methods = {'all()': "do_all",
+                   'count()': "count",
+                   'create()': "do_create"}
+        tokens = arg.split('.', 1)
+        if tokens[0] not in classes:
+            print("** class doesn't exist **")
+        elif tokens[1] not in methods:
+            print("** command doesn't exist **")
+        else:
+            eval('self.{}("{}")'.format(methods[tokens[1]], tokens[0]))
+
+def count(self, arg):
+        count = 0
+        objects = storage.all()
+        for k, v in objects.items():
+            tmp = k.split('.', 1)
+            if tmp[0] == arg:
+                count += 1
+        print(count)
+
+def val_type(val):
+    try:
+        int(val)
+        return (int)
+    except ValueError:
+        pass
+    try:
+        float(val)
+        return (float)
+    except ValueError:
+        return (str)
+    
+def parse(arg):
+    return arg.split()
+
+if __name__ == "__main__":
+    HBNBCommand().cmdloop()
