@@ -2,13 +2,9 @@
 #command interpreter in python
 
 import cmd
-
-#print(dir(cmd.Cmd))
+# print(dir(cmd.Cmd))
 
 '''class for command interpter '''
-<<<<<<< HEAD
-class HBNBCommand(cmd.Cmd):
-=======
 import cmd
 from datetime import datetime
 from models.base_model import BaseModel
@@ -23,7 +19,6 @@ from models.review import Review
 import models
 
 class Command(cmd.Cmd):
->>>>>>> 0fdfe455b6f6dac33477f03ded5d3f59c30b6f38
     intro = 'Welcome to the command prompt! Please enter help for a list of commands.'
     prompt = '(hbnb) '
     
@@ -37,10 +32,6 @@ class Command(cmd.Cmd):
         ''' This is to exit the custom CMD'''
         return True
     pass
-<<<<<<< HEAD
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
-=======
 Command().cmdloop()
 
 def do_create(self, arg):
@@ -54,4 +45,3 @@ def do_create(self, arg):
             obj = classes[args[0]]()
             obj.save()
             print(obj.id)             
->>>>>>> 0fdfe455b6f6dac33477f03ded5d3f59c30b6f38
