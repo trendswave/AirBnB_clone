@@ -55,3 +55,11 @@ class TestConsole(unittest.TestCase):
         self.assertIsNotNone(HBNBCommand.do_all.__doc__)
         self.assertIsNotNone(HBNBCommand.do_update.__doc__)
         self.assertIsNotNone(HBNBCommand.default.__doc__)
+
+    def test_empty(self):
+        """ Tests the emptyline method """
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("\n")
+            self.assertEqual('', f.getvalue())
+    
+    
