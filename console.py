@@ -1,58 +1,103 @@
-#!/usr/bin/python
-'''
-    class for command interpter 
-'''
+#!/usr/bin/python3
+#command interpreter in python
+
+from ast import parse
 import cmd
+# print(dir(cmd.Cmd))
+
+'''class for command interpter '''
 
 class HBNBCommand(cmd.Cmd):
-    
-    '''class for command interpter '''
-    prompt = "(hbnb)"
-    
+ import cmd
+from datetime import datetime
+from models.base_model import BaseModel
+from models import classes, storage
+import re
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+import model
+
+class HBNBCommand(cmd.Cmd):
+    # intro = 'Welcome to the command prompt! Please enter help for a list of commands.'
+    prompt = '(hbnb) '
+    valid_classes = ["BaseModel", "User"]
     
     def do_EOF(self, line):
-        
-        """ Handles End Of File character. """
+        """Handles End Of File character.
+        """
         print()
         return True
     
     def do_quit(self, line):
-        
         ''' Quit command to exit the program '''
         return True
-    
+    pass
 
-if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+def do_create(self, arg):
+        '''Creates new instance'''
+        args = parse(arg)
+        if not args:
+            print("** class name missing **")
+        elif args[0] not in classes:
+            print("** class doesn't exist **")
+        else:
+            obj = classes[args[0]]()
+            obj.save()
+            print(obj.id)    
 
+def do_show(self, arg):
+        'Shows attributes of <class> <id>'
+        args = parse(arg)
+        if not args or len(args) == 0 or args[0] == "":
+            print("** class name missing **")
+        elif args[0] not in classes:
+            print("** class doesn't exist **")
+        elif len(args) < 2 or args[1] == "":
+            print("** instance id missing **")
+        else:
+            key = args[0] + "." + args[1]
+            if key in storage.all():
+                print(storage.all()[key])
+            else:
+                print("** no instance found **")
 
+def do_destroy(self, arg):
+        'Deletes instance of <class> <id>'
+        args = parse(arg)
+        if not args or len(args) == 0 or args[0] == "":
+            print("** class name missing **")
+        elif args[0] not in classes:
+            print("** class doesn't exist **")
+        elif len(args) < 2 or args[1] == "":
+            print("** instance id missing **")
+        else:
+            key = args[0] + "." + args[1]
+            if key in storage.all():
+                del storage.all()[key]
+                storage.save()
+            else:
+                print("** no instance found **")
 
-
-
-
-
-
-
-# def default(self, arg):
-#         """ Deals with <class name>.<command>() """
-#         methods = {'all()': "do_all",
-#                    'count()': "count",
-#                    'create()': "do_create"}
-#         tokens = arg.split('.', 1)
-#         if tokens[0] not in classes:
-#             print("** class doesn't exist **")
-#         elif tokens[1] not in methods:
-#             print("** command doesn't exist **")
-#         else:
-#             eval('self.{}("{}")'.format(methods[tokens[1]], tokens[0]))
-
-        
-# def parse(arg):
-#     return arg.split()
-
-# if __name__ == "__main__":
-#     HBNBCommand().cmdloop()def parse(arg):
-#     return arg.split()
-
-# if __name__ == "__main__":
-#     HBNBCommand().cmdloop()
+def do_all(self, arg):
+        'Prints all <class> instances or all instances'
+        args = parse(arg)
+        objects = storage.all()
+        if not args:
+            v_list = []
+            for k, v in objects.items():
+                v_list.append(str(objects[k]))
+            if v_list:
+                print(v_list)
+        else:
+            v_list = []
+            for k, v in objects.items():
+                if v.__class__.__name__ == args[0]:
+                    v_list.append(str(objects[k]))
+            if v_list:
+                print(v_list)
+            else:
+                print("** class doesn't exist **")
