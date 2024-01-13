@@ -62,4 +62,9 @@ class TestConsole(unittest.TestCase):
             self.console.onecmd("\n")
             self.assertEqual('', f.getvalue())
     
-    
+     def test_quit(self):
+        """ Tests the quit method """
+        with patch('sys.stdout', new=StringIO()) as f:
+            with self.assertRaises(SystemExit):
+                self.console.onecmd("quit")
+            self.assertEqual('', f.getvalue())
