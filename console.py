@@ -1,8 +1,13 @@
-#!/usr/bin/python3
-'''class for command interpter '''
+#!/usr/bin/python
+'''
+    class for command interpter 
+'''
 import cmd
+
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb)'
+    ''' 
+    '''
+    prompt = "(hbnb)"
     
     
     def do_EOF(self, line):
@@ -10,11 +15,15 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
     
-    def do_quit(self, line):
+    def help_quit(self, line):
         '''Quit command to exit the program'''
+        
+        # print("Quit command to exit the program")
         return True
     
-    pass
+    def do_quit(self, line):
+        return True
+    
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
 
