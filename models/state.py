@@ -4,4 +4,4 @@ from base_model import BaseModel
 
 class User(BaseModel):
     """Manages the State of the user. It inherits from BaseModel."""
-    state_name = ""
+    name: str = ""
