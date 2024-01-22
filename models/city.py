@@ -1,9 +1,15 @@
 #!/usr/bin/python3
 
-from base_model import BaseModel
+"""City Module:
+Inherits from Superclass BaseModel
+"""
 
-class User(BaseModel):
-    
-    '''This collect the city the user is in'''  
-    city: str = ""
+from models.base_model import BaseModel
+
+
+class City(BaseModel):
+    """City class that inherits from BaseModel
+    with Public class attributes
+    """
     state_id: str = ""
+    name: str = ""

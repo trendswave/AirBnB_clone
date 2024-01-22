@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 
-from base_model import BaseModel
+"""State Module:
+Inherits from Superclass BaseModel
+"""
 
-class User(BaseModel):
-    """Manages the State of the user. It inherits from BaseModel."""
+from models.base_model import BaseModel
+
+
+class State(BaseModel):
+    """State class that inherits from BaseModel."""
     name: str = ""
