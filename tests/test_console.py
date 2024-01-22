@@ -1,4 +1,6 @@
-test for console
+#!/usr/bin/python3
+
+"""test for console
 """
 
 import sys
